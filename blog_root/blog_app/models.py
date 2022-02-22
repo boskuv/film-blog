@@ -1,13 +1,13 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-#class Meta
+
 class Actor(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=50)
     surname = models.CharField(max_length=50)
     birthday = models.DateField(blank=True, null=True)
-    image = models.ImageField(upload_to ='actors/')
+    image = models.ImageField(upload_to='actors/', blank=True)
 
     def __str__(self):
         return f'{self.name} {self.surname}'
@@ -22,7 +22,7 @@ class Film(models.Model):
             MaxValueValidator(5),
             MinValueValidator(1)
         ])
-    image = models.ImageField(upload_to ='films/')
+    image = models.ImageField(upload_to='films/', blank=True)
 
     def __str__(self):
         return self.title
