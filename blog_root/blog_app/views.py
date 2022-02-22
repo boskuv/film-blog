@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+def show_films(request):
+    return render(request, 'blog_app/films.html', {})
+
+def index(request):
+    return render(request, 'blog_app/index.html', {})
