@@ -1,7 +1,10 @@
 from django.shortcuts import render
+from .models import Film, Actor
 
-def show_films(request):
-    return render(request, 'blog_app/films.html', {})
 
 def index(request):
-    return render(request, 'blog_app/index.html', {})
+    films = Film.objects.all()
+    context = {
+        'films': films
+    }
+    return render(request, 'blog_app/index.html', context)
