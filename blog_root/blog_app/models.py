@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models import Avg
 
 
 class Actor(models.Model):
@@ -18,11 +19,19 @@ class Film(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     actors = models.ManyToManyField(Actor)
-    rating = models.PositiveSmallIntegerField(blank=True, validators=[
-            MaxValueValidator(5),
-            MinValueValidator(1)
-        ])
     image = models.ImageField(upload_to='films/', blank=True)
 
     def __str__(self):
         return self.title
+
+    @property
+    def average_rating(self):
+        return self.film.all().aggregate(Avg('rate')).get('rate__avg', 0.00)
+
+
+class Rating(models.Model):
+    rate = models.PositiveSmallIntegerField(blank=True, validators=[
+            MaxValueValidator(5),
+            MinValueValidator(1)
+        ])
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='film')
