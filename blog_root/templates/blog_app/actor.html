@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">{{actor.name}} {{actor.surname}} </h2>
+        <p class="lead">{{actor.birthday}}</p>
+        <p class="lead"><br/>{% for film in films %} {{ film }}  <br/>{% endfor %}</p>
+      </div>
+      <div class="col-md-5">
+        <img  class="img-responsive watch-right" style="max-width:500px;" alt="not found" src="{{actor.image.url}}"/>
+      </div>
+    </div>
+
+{% endblock %}
